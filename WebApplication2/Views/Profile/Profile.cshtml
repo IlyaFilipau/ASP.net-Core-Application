@@ -1,0 +1,48 @@
+﻿@model WebApplication2.coursework.Customer
+@{
+    ViewBag.Title = "Profile";
+}
+@{
+    if (!string.IsNullOrEmpty(User.Identity.Name))
+    {
+        <h1>Hello @User.Identity.Name</h1>
+    }
+}
+<br />
+<div>
+    <dl>
+        <dt>Email</dt>
+        <dd>@Model.CustomerEmail</dd>
+
+        <dt>Score</dt>
+        <dd>@Model.CustomerScore$</dd>
+
+        <dt>Role</dt>
+        <dd>@Model.Role.Name</dd>
+    </dl>
+</div>
+
+<a asp-action="Edit" asp-controller="Profile" asp-route-Id="@Model.Id">
+    <input type="submit" value="Edit" class="btn btn-default" />
+</a>
+<a asp-action="Admin">
+    <input type="submit" value="Admin" class="btn btn-default" />
+</a>
+<br />
+<br />
+<h4>Orders</h4>
+<table class="table">
+    @{
+        if (Model.Orders != null)
+        {
+            foreach (var item in Model.Orders)
+            {
+                <tr>
+                    <td>@item.Product.ProductName</td>
+                    <td>@item.OrderScore</td>
+                    <td>@item.OrderDateTime</td>
+                </tr>
+            }
+        }
+    }
+</table>

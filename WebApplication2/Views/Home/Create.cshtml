@@ -1,0 +1,62 @@
+﻿@model WebApplication2.coursework.Customer
+@{
+    ViewBag.Title = "Добавление покупателя";
+}
+
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"
+        asp-fallback-src="~/lib/jquery-validation/dist/jquery.validate.min.js"
+        asp-fallback-test="window.jQuery && window.jQuery.validator">
+</script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"
+        asp-fallback-src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"
+        asp-fallback-test="window.jQuery && window.jQuery.validator && window.jQuery.validator.unobtrusive">
+</script>
+
+<form asp-antiforgery="true" asp-action="create" asp-controller="Profile">
+    <br />
+    <div class="input-validation-error" asp-validation-summary="ModelOnly"> </div>
+    <div class="form-group">
+        <label asp-for="CustomerLogin" class="control-label">Login</label>
+        <input required type="text" asp-for="CustomerLogin" class="form-control" />
+        <span class="field-validation-valid" asp-validation-for="CustomerLogin"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CustomerPassword" class="control-label">Password</label>
+        <input required type="text" asp-for="CustomerPassword" class="form-control" />
+        <span asp-validation-for="CustomerPassword"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CustomerEmail" class="control-label">Email</label>
+        <input required type="text" asp-for="CustomerEmail" class="form-control" />
+        <span asp-validation-for="CustomerEmail"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CustomerScore" class="control-label">Score</label>
+        <input type="number" asp-for="CustomerScore" placeholder="100" class="form-control" />
+        <span asp-validation-for="CustomerScore"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Send" class="btn btn-default" />
+    </div>
+</form>
+
+@section scripts{
+
+    <environment names="Development">
+        <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"
+                asp-fallback-src="~/lib/jquery-validation/dist/jquery.validate.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.validator">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"
+                asp-fallback-src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.validator && window.jQuery.validator.unobtrusive">
+        </script>
+    </environment>
+}

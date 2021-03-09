@@ -1,0 +1,127 @@
+﻿@model WebApplication2.ViewModel.AddProduct
+@{
+    ViewBag.Title = "EditProduct";
+}
+
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"
+        asp-fallback-src="~/lib/jquery-validation/dist/jquery.validate.min.js"
+        asp-fallback-test="window.jQuery && window.jQuery.validator">
+</script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"
+        asp-fallback-src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"
+        asp-fallback-test="window.jQuery && window.jQuery.validator && window.jQuery.validator.unobtrusive">
+</script>
+
+<form asp-antiforgery="true" enctype="multipart/form-data" method="post" asp-action="Edit" asp-controller="Home">
+    <br />
+    <input type="hidden" asp-for="Product.Id" value="@Model.Product.Id"/>
+    <div class="input-validation-error" asp-validation-summary="ModelOnly"> </div>
+    <div class="form-group">
+        <label class="control-label">Logo image</label>
+        <input type="file" name="logo" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Product.ProductName" class="control-label">Name</label>
+        <input required type="text" asp-for="Product.ProductName" class="form-control" />
+        <span class="field-validation-valid" asp-validation-for="Product.ProductName"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Product.Price" class="control-label">Price</label>
+        <input required type="text" asp-for="Product.Price" class="form-control" />
+        <span asp-validation-for="Product.Price"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Product.ProductIssueDate" class="control-label">Issue Date</label>
+        <input required type="datetime" asp-for="Product.ProductIssueDate" class="form-control" />
+        <span asp-validation-for="Product.ProductIssueDate"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Product.ProductEvaluation" class="control-label">Evaluation</label>
+        <input required type="number" asp-for="Product.ProductEvaluation" class="form-control" />
+        <span asp-validation-for="Product.ProductEvaluation"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Product.ProductAgeRating" class="control-label">Age Rating</label>
+        <input required type="text" asp-for="Product.ProductAgeRating" class="form-control" />
+        <span asp-validation-for="Product.ProductAgeRating"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Product.GenreId" class="control-label">Genre</label>
+        <select asp-for="Product.GenreId" class="form-control">
+            @foreach (var genre in Model.Genres)
+            {
+                <option value="@genre.Id">@genre.GenreName</option>
+            }
+        </select>
+        <span asp-validation-for="Product.Genre"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Product.SeriesId" class="control-label">Series</label>
+        <select asp-for="Product.SeriesId" class="form-control">
+            @foreach (var series in Model.Series)
+            {
+                <option value="@series.Id">@series.SeriesName</option>
+            }
+        </select>
+        <span asp-validation-for="Product.Series"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Product.CategoryId" class="control-label">Category</label>
+        <select asp-for="Product.CategoryId" class="form-control">
+            @foreach (var category in Model.Categories)
+            {
+                <option value="@category.Id">@category.CategoryName</option>
+            }
+        </select>
+        <span asp-validation-for="Product.Category"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Product.PublisherId" class="control-label">Publisher</label>
+        <select asp-for="Product.PublisherId" class="form-control">
+            @foreach (var publisher in Model.Publishers)
+            {
+                <option value="@publisher.Id">@publisher.PublisherName</option>
+            }
+        </select>
+        <span asp-validation-for="Product.Publisher"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Product.ManufacturerId" class="control-label">Manufacturer</label>
+        <select asp-for="Product.ManufacturerId" class="form-control">
+            @foreach (var manufacturer in Model.Manufacturers)
+            {
+                <option value="@manufacturer.Id">@manufacturer.ManufacturerName</option>
+            }
+        </select>
+        <span asp-validation-for="Product.Manufacturer"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Product.ProductDescription" class="control-label">Description</label>
+        <textarea required asp-for="Product.ProductDescription" class="form-control" ></textarea>
+        <span asp-validation-for="Product.ProductDescription"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Send" class="btn btn-default" />
+    </div>
+</form>
+
+@section scripts{
+
+    <environment names="Development">
+        <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"
+                asp-fallback-src="~/lib/jquery-validation/dist/jquery.validate.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.validator">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"
+                asp-fallback-src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.validator && window.jQuery.validator.unobtrusive">
+        </script>
+    </environment>
+}

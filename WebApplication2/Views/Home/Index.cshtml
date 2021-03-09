@@ -1,0 +1,38 @@
+﻿@model IEnumerable<WebApplication2.coursework.Customer>
+@{
+    ViewBag.Title = "Все покупатели";
+}
+@{
+    <h1>Welcom in Lucky</h1>
+    if (!string.IsNullOrEmpty(User.Identity.Name))
+    {
+        <h1>@User.Identity.Name</h1>
+        <a role="button" asp-controller="Profile" asp-action="Logout" class="btn btn-danger">Log out</a>
+    }
+    else
+    {
+        <form asp-action="Sign_in" asp-controller="Profile">
+            <div class="form-group">
+                <label class="control-label">Login</label>
+                <input type="text" name="CustomerLogin" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Password</label>
+                <input type="password" name="CustomerPassword" class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-primary" asp-action="Sign_in" asp-controller="Profile">Log in</button>
+        </form>
+    }
+}
+<br/>
+<a asp-action="Create">
+    <input type="submit" value="Create account" class="btn btn-default" />
+</a>
+or
+<a asp-action="Sign_in">
+    <input type="submit" value="Sign in" class="btn btn-default" />
+</a>
+
+<a asp-action="Admin">
+    <input type="submit" value="Admin" class="btn btn-default" />
+</a>

@@ -1,0 +1,128 @@
+﻿@using Microsoft.EntityFrameworkCore
+@using WebApplication2.coursework
+@model ProductViewModel
+@addTagHelper "*, WebApplication2"
+@{
+    ViewBag.Title = "Product";
+}
+<h2>Product List</h2>
+<form method="get">
+    <div class="form-inline form-group">
+        <br/>
+        <label class="control-label">Name: </label>
+        <br/>
+        @Html.TextBox("name", Model.FilterViewModel.SelectedName, htmlAttributes: new { @class = "form-control" })
+        <br/>
+        <label class="control-label">Genre: </label>
+        <br/>
+        @if (Model?.FilterViewModel?.Genres != null)
+        {
+            if (Model.FilterViewModel.Genres is SelectList list)
+            {
+                @Html.DropDownList("genre", list,
+                htmlAttributes: new { @class = "form-control" })
+            }
+        }
+        <input type="submit" value="Filter" class="btn btn-default" />
+        <br/>
+    </div>
+</form>
+
+<table class="table">
+    <tr>
+        <td></td>
+        <td>
+            <a asp-action="Products"
+               asp-route-sortOrder="@(Model.SortViewModel.NameSort)"
+               asp-route-name="@(Model.FilterViewModel.SelectedName)"
+               asp-route-genre="@(Model.FilterViewModel.SelectedGenre)"><h4>Product</h4></a>
+        </td>
+        <td>
+            <a asp-action="Products"
+               asp-route-sortOrder="@(Model.SortViewModel.PriceSort)"
+               asp-route-name="@(Model.FilterViewModel.SelectedName)"
+               asp-route-company="@(Model.FilterViewModel.SelectedGenre)"><h4>Price</h4></a>
+        </td>
+        @{
+             //Это по хорошему вынести отсюда в другое место
+            using (var db = new ApplicationDbContext())
+            {
+                var user = await db.Customers.FirstOrDefaultAsync(x => x.CustomerLogin == User.Identity.Name);
+                if (user != null && user.RoleId == 1)
+                {
+                    <td>
+                        <a asp-action="AddProduct">
+                            <input type="submit" value="Add product" class="btn btn-default" />
+                        </a>
+                    </td>
+                }
+            }
+        }
+    </tr>
+    @{
+        if (Model.Products != null)
+        {
+            foreach (var item in Model.Products)
+            {
+                <tr>
+                    <td><img width="200" height="90" src="~/@item.LogoUrl"/></td>
+                    <td>@item.ProductName</td>
+                    <td>@item.Price$</td>
+                    <td>
+                        <a asp-action="Details" asp-controller="Home" asp-route-id="@item.Id">
+                            <input type="submit" value="Details" class="btn btn-default" />
+                        </a>
+                        <a asp-action="Buy" asp-controller="Home" asp-route-productId="@item.Id">
+                            <input type="submit" value="Buy" class="btn btn-default" />
+                        </a>
+                    @{
+                        using (var db = new ApplicationDbContext())
+                        {
+                            var user = await db.Customers.FirstOrDefaultAsync(x => x.CustomerLogin == User.Identity.Name);
+                            if (user != null && user.RoleId == 1)
+                            {
+                                <a asp-action="Edit" asp-controller="Home" asp-route-id="@item.Id">
+                                    <input type="submit" value="Update" class="btn btn-default"/>
+                                </a>
+                                <a asp-action="Delete" asp-controller="Home" asp-route-id="@item.Id">
+                                    <input type="submit" value="Delete" class="btn btn-default"/>
+                                </a>
+                            }
+                        }
+                    }
+                    </td>
+                </tr>
+            }
+        }
+    }
+</table>
+
+<page-link page-model="Model.PageViewModel" page-action="Products"
+           page-url-name="@(Model.FilterViewModel.SelectedName)"
+           page-url-genre="@(Model.FilterViewModel.SelectedGenre)"
+           page-url-sortorder="@(Model.SortViewModel.Current)"></page-link>
+
+@*@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-action="Products"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+       asp-route-name="@(Model.FilterViewModel.SelectedName)"
+       asp-route-company="@(Model.FilterViewModel.SelectedGenre)"
+       asp-route-sortorder="@(Model.SortViewModel.Current)"
+       class="btn btn-default btn">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Назад
+    </a>
+}
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-action="Products"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       asp-route-name="@(Model.FilterViewModel.SelectedName)"
+       asp-route-company="@(Model.FilterViewModel.SelectedGenre)"
+       asp-route-sortorder="@(Model.SortViewModel.Current)"
+       class="btn btn-default btn">
+        Вперед
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
+}*@

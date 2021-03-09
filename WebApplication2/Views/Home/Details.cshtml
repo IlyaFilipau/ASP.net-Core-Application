@@ -1,0 +1,66 @@
+﻿@model WebApplication2.coursework.Product
+@{
+    ViewBag.Title = "Model";
+}
+<h2>Product @Model.ProductName</h2>
+
+<div>
+    
+        <img width="410" height="190" src="~/@Model.LogoUrl" />
+     <dl>
+        <dt>Price</dt>
+        <dd>@Model.Price</dd>
+
+        <dt>Genre</dt>
+        <dd>@Model.Genre.GenreName</dd>
+
+        <dt>Series</dt>
+        <dd>@Model.Series.SeriesName</dd>
+
+        <dt>Category</dt>
+        <dd>@Model.Category.CategoryName</dd>
+
+        <dt>Manufacturer</dt>
+        <dd>@Model.Manufacturer.ManufacturerName</dd>
+
+        <dt>Publisher</dt>
+        <dd>@Model.Publisher.PublisherName</dd>
+
+        <dt>Age Rating</dt>
+        <dd>@Model.ProductAgeRating</dd>
+
+        <dt>Evaluation</dt>
+        <dd>@Model.ProductEvaluation</dd>
+
+        <dt>Issue Date</dt>
+        <dd>@Model.ProductIssueDate</dd>
+
+        <dt>Description</dt>
+        <dd>@Model.ProductDescription</dd>
+    </dl>
+</div>
+
+<table class="table">
+    <tr>
+        <td>
+            <h4>Reviews</h4>
+        </td>
+        <td>
+            <a asp-action="AddReview" asp-controller="Home" asp-route-productId="@Model.Id">
+                <input type="submit" value="Add or update review" class="btn btn-default" />
+            </a>
+        </td>
+    </tr>
+    @{
+        if (Model.Reviews != null)
+        {
+            foreach (var item in Model.Reviews)
+            {
+                <tr>
+                    <td>@item.Customer.CustomerLogin</td>
+                    <td>@item.ProductReview</td>
+                </tr>
+            }
+        }
+    }
+</table>

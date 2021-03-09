@@ -1,0 +1,24 @@
+﻿@model IEnumerable<WebApplication2.coursework.Customer>
+@{
+    ViewBag.Title = "Admin";
+}
+<table class="table">
+    <tr><td>Login</td></tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.CustomerLogin</td>
+            <td>
+                <a asp-action="AdminDetails" asp-controller="Profile" asp-route-id="@item.Id">
+                    <input type="submit" value="Details" class="btn btn-default" />
+                </a>
+                <a asp-action="AdminEdit" asp-controller="Profile" asp-route-id="@item.Id">
+                    <input type="submit" value="Edit" class="btn btn-default" />
+                </a>
+                <a asp-action="AdminDelete" asp-controller="Profile" asp-route-id="@item.Id">
+                    <input type="submit" value="Delete" class="btn btn-default" />
+                </a>
+            </td>
+        </tr>
+    }
+</table>
